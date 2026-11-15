@@ -85,7 +85,7 @@ final class ReviewModel: ObservableObject {
         guard !Task.isCancelled else { return }
         guard access == .authorized || access == .limited else {
             busy = false
-            status = "请在 iPhone 设置中允许「发图清理」读取相册截图，再试一次。"
+            status = "请在 iPhone 设置中允许「截图清理」读取相册截图，再试一次。"
             return
         }
         let result = Self.recentScreenshots(referenceDate: Date())
@@ -224,7 +224,7 @@ struct CleanupView: View {
                 .frame(maxWidth: 540, alignment: .leading)
                 .frame(maxWidth: .infinity)
             }
-            .navigationTitle("发图清理")
+            .navigationTitle("截图清理")
             .safeAreaInset(edge: .bottom) {
                 if !model.candidates.isEmpty {
                     HStack {
