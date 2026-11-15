@@ -17,9 +17,11 @@ Eventually, Photos fills up with product screens, chat records, and error messag
 
 ![A photo library filled with screenshots](./images/screenshot-library.jpg)
 
+Most photo-cleanup tools help after the clutter has accumulated: open another app, review a backlog, and clean it in batches. My problem is not that batch cleanup is too slow. It is that I never come back to do it.
+
 **Deletion only happens when it is easy enough.**
 
-So ShotCleanup does one thing:
+ShotCleanup is therefore not a periodic photo organizer. It puts deletion at the moment a screenshot has finished its job:
 
 **After sending screenshots, triple-tap the back of your iPhone.**
 
