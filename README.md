@@ -1,4 +1,4 @@
-# ShotCleanup · 发图清理
+# ShotCleanup · 截图清理
 
 > 截图发出去之后，顺手把它从相册里送走。
 
