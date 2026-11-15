@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		10000000000000000000000A /* ShotCleanupApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000008 /* ShotCleanupApp.swift */; };
 		10000000000000000000000B /* ThumbnailMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000009 /* ThumbnailMatcher.swift */; };
+		100000000000000000000018 /* ScreenshotBatchInference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000019 /* ScreenshotBatchInference.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		100000000000000000000007 /* ShotCleanup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = ShotCleanup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		100000000000000000000008 /* ShotCleanupApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShotCleanupApp.swift; sourceTree = "<group>"; };
 		100000000000000000000009 /* ThumbnailMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailMatcher.swift; sourceTree = "<group>"; };
+		100000000000000000000019 /* ScreenshotBatchInference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotBatchInference.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +43,7 @@
 			children = (
 				100000000000000000000008 /* ShotCleanupApp.swift */,
 				100000000000000000000009 /* ThumbnailMatcher.swift */,
+				100000000000000000000019 /* ScreenshotBatchInference.swift */,
 			);
 			path = ShotCleanup;
 			sourceTree = "<group>";
@@ -106,6 +109,7 @@
 			files = (
 				10000000000000000000000A /* ShotCleanupApp.swift in Sources */,
 				10000000000000000000000B /* ThumbnailMatcher.swift in Sources */,
+				100000000000000000000018 /* ScreenshotBatchInference.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,3 +195,4 @@
 	};
 	rootObject = 100000000000000000000001 /* Project object */;
 }
+

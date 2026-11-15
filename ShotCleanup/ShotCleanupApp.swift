@@ -41,7 +41,8 @@ final class ReviewModel: ObservableObject {
     struct Candidate: Identifiable {
         let id: String
         let image: UIImage
-        let bounds: CGRect
+        let bounds: CGRect?
+        let matchedOnScreen: Bool
     }
 
     static let shared = ReviewModel()
@@ -91,13 +92,19 @@ final class ReviewModel: ObservableObject {
         let result = Self.recentScreenshots(referenceDate: Date())
         var images: [String: UIImage] = [:]
         var samples: [ScreenshotSample] = []
+        var recentItems: [ScreenshotBatchItem] = []
         for index in 0..<result.count {
             guard !Task.isCancelled else { return }
             let asset = result.object(at: index)
             guard asset.mediaSubtypes.contains(.photoScreenshot) else { continue }
-            if let image = await Self.loadImage(asset), let pixels = image.cgImage {
+            if let creationDate = asset.creationDate,
+               let image = await Self.loadImage(asset), let pixels = image.cgImage {
                 images[asset.localIdentifier] = image
                 samples.append(ScreenshotSample(id: asset.localIdentifier, image: pixels))
+                recentItems.append(ScreenshotBatchItem(
+                    id: asset.localIdentifier,
+                    creationDate: creationDate
+                ))
             }
         }
         guard !Task.isCancelled else { return }
@@ -112,8 +119,20 @@ final class ReviewModel: ObservableObject {
         }
         guard !Task.isCancelled else { return }
 
-        candidates = hits.compactMap { hit in
-            images[hit.id].map { Candidate(id: hit.id, image: $0, bounds: hit.bounds) }
+        let hitsByID = Dictionary(uniqueKeysWithValues: hits.map { ($0.id, $0) })
+        let batch = ScreenshotBatchInference.infer(
+            items: recentItems,
+            matchedIDs: Set(hitsByID.keys)
+        )
+        candidates = batch.ids.compactMap { id in
+            images[id].map {
+                Candidate(
+                    id: id,
+                    image: $0,
+                    bounds: hitsByID[id]?.bounds,
+                    matchedOnScreen: hitsByID[id] != nil
+                )
+            }
         }
         capture = candidates.isEmpty ? nil : screen
         busy = false
@@ -122,6 +141,17 @@ final class ReviewModel: ObservableObject {
                 ? "没找到可靠匹配。有限相册权限只允许比对你已授权的截图。"
                 : "没找到可靠匹配，因此没有删除任何照片。"
             return
+        }
+        let matchedCount = candidates.filter(\.matchedOnScreen).count
+        switch batch.decision {
+        case .expanded:
+            status = "屏幕中匹配到 \(matchedCount) 张，另有 \(candidates.count - matchedCount) 张连续创建的截图被归入同一批。"
+        case .multipleBatches:
+            status = "最近截图分成多批，只保留当前屏幕中明确匹配的 \(matchedCount) 张。"
+        case .batchTooLarge:
+            status = "推断出的批次过大，只保留当前屏幕中明确匹配的 \(matchedCount) 张。"
+        case .matchedOnly:
+            status = nil
         }
         if requestDeletion { await removeSelected() }
     }
@@ -277,7 +307,7 @@ struct CleanupView: View {
 
     private var review: some View {
         VStack(alignment: .leading, spacing: 14) {
-            Text("找到 \(model.candidates.count) 张相似截图").font(.title3.bold())
+            Text("准备清理 \(model.candidates.count) 张截图").font(.title3.bold())
             Text("请确认这些是刚发的图。点缩略图可以取消勾选。")
                 .foregroundStyle(.secondary)
             if let status = model.status { Text(status).foregroundStyle(.secondary) }
@@ -312,13 +342,14 @@ struct CleanupView: View {
                             .resizable()
                             .overlay {
                                 ForEach(model.candidates) { item in
-                                    let rect = item.bounds
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .strokeBorder(.green, lineWidth: 2)
-                                        .frame(width: rect.width * proxy.size.width,
-                                               height: rect.height * proxy.size.height)
-                                        .position(x: rect.midX * proxy.size.width,
-                                                  y: rect.midY * proxy.size.height)
+                                    if let rect = item.bounds {
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .strokeBorder(.green, lineWidth: 2)
+                                            .frame(width: rect.width * proxy.size.width,
+                                                   height: rect.height * proxy.size.height)
+                                            .position(x: rect.midX * proxy.size.width,
+                                                      y: rect.midY * proxy.size.height)
+                                    }
                                 }
                             }
                     }
@@ -329,3 +360,4 @@ struct CleanupView: View {
         }
     }
 }
+

@@ -38,7 +38,45 @@ struct MatcherChecks {
 
         let blank = draw(width: 144, height: 312) { _ in }
         precondition(ThumbnailMatcher.find(screen: blank, samples: [firstSample]).isEmpty)
-        print("Passed multi-image, ordering, distractor, duplicate and blank-screen checks.")
+        checkBatchInference()
+        print("Passed image matching and screenshot batch inference checks.")
+    }
+
+    static func checkBatchInference() {
+        let base = Date(timeIntervalSince1970: 1_000)
+        let continuous = (0..<10).map {
+            ScreenshotBatchItem(id: "shot-\($0)", creationDate: base.addingTimeInterval(Double($0 * 5)))
+        }
+        let expanded = ScreenshotBatchInference.infer(
+            items: continuous,
+            matchedIDs: ["shot-8", "shot-9"]
+        )
+        precondition(expanded.ids == continuous.map(\.id))
+        precondition(expanded.decision == .expanded)
+
+        let separated = [
+            ScreenshotBatchItem(id: "early-1", creationDate: base),
+            ScreenshotBatchItem(id: "early-2", creationDate: base.addingTimeInterval(5)),
+            ScreenshotBatchItem(id: "late-1", creationDate: base.addingTimeInterval(90)),
+            ScreenshotBatchItem(id: "late-2", creationDate: base.addingTimeInterval(95))
+        ]
+        let ambiguous = ScreenshotBatchInference.infer(
+            items: separated,
+            matchedIDs: ["early-2", "late-2"]
+        )
+        precondition(ambiguous.ids == ["early-2", "late-2"])
+        precondition(ambiguous.decision == .multipleBatches)
+
+        let tooLarge = (0..<21).map {
+            ScreenshotBatchItem(id: "many-\($0)", creationDate: base.addingTimeInterval(Double($0)))
+        }
+        let capped = ScreenshotBatchInference.infer(items: tooLarge, matchedIDs: ["many-20"])
+        precondition(capped.ids == ["many-20"])
+        precondition(capped.decision == .batchTooLarge)
+
+        let missing = ScreenshotBatchInference.infer(items: continuous, matchedIDs: ["missing"])
+        precondition(missing.ids.isEmpty)
+        precondition(missing.decision == .matchedOnly)
     }
 
     static func pattern(seed: UInt64) -> CGImage {
@@ -74,3 +112,4 @@ struct MatcherChecks {
         return image
     }
 }
+
