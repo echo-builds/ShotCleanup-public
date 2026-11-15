@@ -134,7 +134,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "发图清理";
+				INFOPLIST_KEY_CFBundleDisplayName = "截图清理";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "用于在本机比对相册截图，并按你的确认删除对应截图。";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
@@ -153,7 +153,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "发图清理";
+				INFOPLIST_KEY_CFBundleDisplayName = "截图清理";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "用于在本机比对相册截图，并按你的确认删除对应截图。";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
