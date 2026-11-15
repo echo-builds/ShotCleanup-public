@@ -20,8 +20,6 @@
 
 我没有立刻/定期回相册清理的习惯。时间一长，相册里就堆满了产品页面、聊天记录、报错信息和各种只看过一次的临时图片。
 
-![堆满截图的相册](./images/screenshot-library.png)
-
 > 这不是我的资料库，只是一些忘记删除的消息附件。
 
 ShotCleanup 只做一件事：
@@ -62,7 +60,7 @@ ShotCleanup 不会直接清空最近的截图。
 目前需要使用 Mac 和 Xcode 自行安装到 iPhone，最低支持 iOS 18。
 
 1. 下载仓库，使用 Xcode 打开 `ShotCleanup.xcodeproj`；
-2. 在 `Signing & Capabilities` 中选择自己的 Apple Account 和 Team；
+2. 在 `Signing & Capabilities` 中选择自己的 Apple Account 和 Team，并把 Bundle Identifier 改成自己的唯一值；
 3. 连接并解锁 iPhone，选择真机后点击 Run；
 4. 在「快捷指令」中新建快捷指令，依次添加「截屏」和 ShotCleanup 提供的「识别刚发送的截图」，并把截屏结果传给后一个操作；
 5. 前往「设置 → 辅助功能 → 触控 → 轻点背面 → 轻点三下」，选择刚创建的快捷指令。
