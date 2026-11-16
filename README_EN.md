@@ -20,7 +20,9 @@ Most of those screenshots have done their job once they are sent. But I do not l
 
 Eventually, Photos fills up with product screens, chat records, and error messages I only needed once.
 
-![A photo library filled with screenshots](./images/screenshot-library.jpg)
+<p align="center">
+  <img src="./images/screenshot-library.jpg" width="300" alt="A photo library filled with screenshots">
+</p>
 
 Most photo-cleanup tools help after the clutter has accumulated: open another app, review a backlog, and clean it in batches. My problem is not that batch cleanup is too slow. It is that I never come back to do it.
 
