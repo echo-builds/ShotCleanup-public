@@ -20,7 +20,9 @@
 
 时间一长，相册里就堆满了只使用过一次的产品页面、聊天记录和报错信息。
 
-![堆满截图的相册](./images/screenshot-library.jpg)
+<p align="center">
+  <img src="./images/screenshot-library.jpg" width="300" alt="堆满截图的相册">
+</p>
 
 常见的相册清理工具，是等图片堆积后，再打开一个 App 批量筛选。但我的问题不是「清理得不够快」，而是我根本不会在以后专门回来清理。
 
