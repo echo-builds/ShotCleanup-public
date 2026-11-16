@@ -9,6 +9,11 @@
 [![On-device](https://img.shields.io/badge/Processing-On--device-2ea44f)](./docs/how-it-works.md)
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
+<p align="center">
+  <video src="./assets/shotcleanup-demo.mp4" width="320" controls muted playsinline></video>
+</p>
+<p align="center"><sub>After sending, triple-tap the back of your iPhone, review the batch, and confirm deletion.</sub></p>
+
 I am a product manager, so I take screenshots every day: a bug I need to share with the team, a product detail worth discussing, or an error message someone needs to see.
 
 Most of those screenshots have done their job once they are sent. But I do not leave the conversation, reopen Photos, find the same images, and delete them. I do not have a weekly screenshot-cleaning habit either.
