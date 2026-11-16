@@ -10,7 +10,7 @@
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
 <p align="center">
-  <video src="./assets/shotcleanup-demo.mp4" width="320" controls muted playsinline></video>
+  <a href="./assets/shotcleanup-demo.mp4"><img src="https://img.shields.io/badge/▶_播放-12_秒演示-2ea44f?style=for-the-badge" alt="播放 ShotCleanup 演示视频"></a>
 </p>
 <p align="center"><sub>发送完成后，背面轻点三下，核对并确认删除。</sub></p>
 

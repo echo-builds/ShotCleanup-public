@@ -10,7 +10,7 @@
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
 <p align="center">
-  <video src="./assets/shotcleanup-demo.mp4" width="320" controls muted playsinline></video>
+  <a href="./assets/shotcleanup-demo.mp4"><img src="https://img.shields.io/badge/▶_Play-12_second_demo-2ea44f?style=for-the-badge" alt="Play the ShotCleanup demo video"></a>
 </p>
 <p align="center"><sub>After sending, triple-tap the back of your iPhone, review the batch, and confirm deletion.</sub></p>
 
