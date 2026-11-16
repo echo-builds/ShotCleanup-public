@@ -10,9 +10,9 @@
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
 <p align="center">
-  <a href="./assets/shotcleanup-demo.mp4"><img src="https://img.shields.io/badge/▶_Play-12_second_demo-2ea44f?style=for-the-badge" alt="Play the ShotCleanup demo video"></a>
+  <a href="./assets/shotcleanup-demo.mp4"><img src="./assets/shotcleanup-demo.gif" width="320" alt="ShotCleanup demo"></a>
 </p>
-<p align="center"><sub>After sending, triple-tap the back of your iPhone, review the batch, and confirm deletion.</sub></p>
+<p align="center"><sub>After sending, triple-tap the back of your iPhone, review the batch, and confirm deletion. Click the GIF for the original video.</sub></p>
 
 I am a product manager, so I take screenshots every day: a bug I need to share with the team, a product detail worth discussing, or an error message someone needs to see.
 
