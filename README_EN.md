@@ -71,7 +71,7 @@ Give the following prompt to Codex, Claude Code, WorkBuddy, or another coding ag
 
 ```text
 Install ShotCleanup on the iPhone currently connected to this Mac.
-Follow this guide exactly: https://raw.githubusercontent.com/echo-builds/ShotCleanup/main/INSTALL.md
+Follow this guide exactly: https://raw.githubusercontent.com/echo-builds/ShotCleanup-public/main/INSTALL.md
 Complete every step that can be automated. Hand control back only when Apple Account sign-in, device trust, or an iPhone setting requires me.
 Afterward, verify that the app was installed and tell me which iPhone-only setup steps remain.
 ```
