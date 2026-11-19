@@ -71,7 +71,7 @@ ShotCleanup 目前是开发者预览版，需要使用装有 Xcode 的 Mac 安�
 
 ```text
 请把 ShotCleanup 安装到这台 Mac 当前连接的 iPhone 上。
-严格按照安装说明执行：https://raw.githubusercontent.com/echo-builds/ShotCleanup/main/INSTALL.md
+严格按照安装说明执行：https://raw.githubusercontent.com/echo-builds/ShotCleanup-public/main/INSTALL.md
 能自动完成的步骤直接完成；只有在需要登录 Apple Account、信任设备或操作 iPhone 设置时再让我接管。
 安装完成后，请验证 App 已成功安装，并告诉我剩余的 iPhone 配置步骤。
 ```
