@@ -15,7 +15,7 @@ This guide is written for coding agents with terminal access to the user's Mac. 
 If the current working directory is already this repository, use it. Otherwise clone it into a new, user-writable directory and enter it:
 
 ```sh
-git clone https://github.com/echo-builds/ShotCleanup.git
+git clone https://github.com/echo-builds/ShotCleanup-public.git
 cd ShotCleanup
 ```
 
