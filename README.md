@@ -63,26 +63,58 @@ ShotCleanup 适合 **刚刚截图 → 很快发送 → 停留在发送页面 →
 
 ## 安装
 
-ShotCleanup 目前是开发者预览版，需要使用装有 Xcode 的 Mac 安装到 iPhone，最低支持 iOS 18。
+ShotCleanup 目前是开发者预览版，需要通过 Mac 安装到 iPhone，最低支持 iOS 18。
 
-### Agent 辅助安装（实验性）
+### 最简单的方式：交给 Agent
 
-把下面这段话交给 Codex、Claude Code、WorkBuddy，或其他能够操作 Mac 终端的 Agent：
+你需要准备：
+
+- 一台 Mac；
+- 一台 iOS 18 或更高版本的 iPhone；
+- 普通 Apple Account；
+- 完整版 Xcode。
+
+**不需要付费开发者账号。**普通 Apple Account 可以把 App 安装到自己的 iPhone，但免费签名 7 天后会失效；到时把同一段话再次交给 Agent 重新安装即可。详见 [Apple 官方说明](https://developer.apple.com/help/account/basics/about-your-developer-account/)。
+
+把下面整段话交给 Codex、Claude Code、WorkBuddy，或其他能够操作 Mac 终端的 Agent：
 
 ```text
-请把 ShotCleanup 安装到这台 Mac 当前连接的 iPhone 上。
-严格按照安装说明执行：https://raw.githubusercontent.com/echo-builds/ShotCleanup-public/main/INSTALL.md
-能自动完成的步骤直接完成；只有在需要登录 Apple Account、信任设备或操作 iPhone 设置时再让我接管。
-安装完成后，请验证 App 已成功安装，并告诉我剩余的 iPhone 配置步骤。
+请直接把 ShotCleanup 安装到这台 Mac 当前连接的 iPhone 上，不要只告诉我步骤。
+
+项目仓库：https://github.com/echo-builds/ShotCleanup-public
+先读取并严格执行安装说明：
+https://raw.githubusercontent.com/echo-builds/ShotCleanup-public/main/INSTALL.md
+
+请自动完成克隆仓库、检查环境、识别签名 Team 和 iPhone、编译、安装及启动。只有在必须由我完成的 Apple 安全操作时再暂停，例如安装或登录 Xcode、信任设备、开启开发者模式、配置快捷指令和背面三击。
+
+需要我操作时，每次只告诉我当前一个动作；我完成后继续，不要重新从头解释。不要向我索要 Apple Account 密码、验证码或恢复密钥。
+
+完成后请验证 App 已经安装到 iPhone，并继续带我完成手机上的快捷指令和背面三击设置。
 ```
 
-首次安装仍可能需要你登录 Apple Account、解锁并信任 iPhone，或开启开发者模式。这些 Apple 系统步骤无法自动跳过。
+Agent 会自动完成：
+
+- 下载正确的公开仓库；
+- 检查 Xcode、签名和连接的 iPhone；
+- 自动选择唯一的签名 Team 和设备；
+- 生成本机专用 Bundle ID；
+- 编译、安装并尝试启动 ShotCleanup。
+
+你只需要在系统要求时完成：
+
+- 安装完整版 Xcode；
+- 在 Xcode 登录自己的 Apple Account；
+- 解锁 iPhone、信任 Mac 或开启开发者模式；
+- 在 iPhone 上允许照片访问并配置快捷指令。
 
 ### 安装后，在 iPhone 配置
 
-1. 打开 ShotCleanup，允许访问照片；
+Agent 会逐步提醒你完成以下操作：
+
+1. 打开 ShotCleanup，允许完整照片访问；
 2. 在「快捷指令」中新建指令，依次添加「截屏」和「识别刚发送的截图」，并将截屏结果传给后一个操作；
-3. 前往「设置 → 辅助功能 → 触控 → 轻点背面 → 轻点三下」，选择这条快捷指令。
+3. 前往「设置 → 辅助功能 → 触控 → 轻点背面 → 轻点三下」，选择这条快捷指令；
+4. 先用不重要的测试截图验证数量和预览，再确认删除。
 
 <details>
 <summary>不用 Agent，手动使用 Xcode 安装</summary>
@@ -94,11 +126,13 @@ ShotCleanup 目前是开发者预览版，需要使用装有 Xcode 的 Mac 安�
 
 </details>
 
-安装失败时，可以先运行：
+安装失败时，也可以在仓库目录运行：
 
 ```sh
-./scripts/doctor.sh
+./scripts/install.sh
 ```
+
+脚本会先检查环境，再给出当前阻塞项。
 
 ## 本地检查
 
