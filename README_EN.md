@@ -63,26 +63,58 @@ ShotCleanup is designed for **take screenshots → send them soon → stay on th
 
 ## Installation
 
-ShotCleanup is currently a developer preview. It requires a Mac with Xcode, an iPhone running iOS 18 or later, and local code signing.
+ShotCleanup is currently a developer preview. It must be installed from a Mac onto an iPhone running iOS 18 or later.
 
-### Agent-assisted install (experimental)
+### Easiest path: give the task to an agent
 
-Give the following prompt to Codex, Claude Code, WorkBuddy, or another coding agent with terminal access to your Mac:
+You need:
+
+- a Mac;
+- an iPhone running iOS 18 or later;
+- a normal Apple Account;
+- the full Xcode app.
+
+**A paid developer membership is not required.** A normal Apple Account can install the app on the account owner's iPhone. Free Personal Team provisioning expires after 7 days; give the same task to the agent again to reinstall it. See [Apple's account overview](https://developer.apple.com/help/account/basics/about-your-developer-account/).
+
+Give this entire prompt to Codex, Claude Code, WorkBuddy, or another coding agent with terminal access to the Mac:
 
 ```text
-Install ShotCleanup on the iPhone currently connected to this Mac.
-Follow this guide exactly: https://raw.githubusercontent.com/echo-builds/ShotCleanup-public/main/INSTALL.md
-Complete every step that can be automated. Hand control back only when Apple Account sign-in, device trust, or an iPhone setting requires me.
-Afterward, verify that the app was installed and tell me which iPhone-only setup steps remain.
+Install ShotCleanup directly on the iPhone currently connected to this Mac. Do the work instead of only explaining the steps.
+
+Repository: https://github.com/echo-builds/ShotCleanup-public
+Read and follow this runbook exactly:
+https://raw.githubusercontent.com/echo-builds/ShotCleanup-public/main/INSTALL.md
+
+Automatically clone the repository, inspect the environment, identify the signing team and iPhone, build, install, and launch the app. Pause only for Apple security steps that I must complete, such as installing or signing in to Xcode, trusting the device, enabling Developer Mode, and configuring Shortcuts and Back Tap.
+
+When I need to act, give me only the current action. Continue after I finish instead of restarting the explanation. Never ask me for an Apple Account password, verification code, or recovery key.
+
+After installation, verify that the app is on the iPhone and continue guiding me through the Shortcut and Triple Tap setup.
 ```
 
-The first install may still require you to sign in to an Apple Account, unlock and trust the iPhone, or enable Developer Mode. Apple does not allow those security steps to be bypassed.
+The agent will handle:
+
+- cloning the correct public repository;
+- checking Xcode, signing, and the connected iPhone;
+- selecting the only available signing team and device;
+- generating a device-specific local Bundle ID;
+- building, installing, and attempting to launch ShotCleanup.
+
+The user only needs to handle Apple-controlled steps:
+
+- install the full Xcode app if it is missing;
+- sign in to an Apple Account inside Xcode;
+- unlock the iPhone, trust the Mac, or enable Developer Mode;
+- allow photo access and configure the Shortcut on the iPhone.
 
 ### Configure the iPhone after installation
 
-1. Open ShotCleanup and allow photo access.
-2. In Shortcuts, create a shortcut with `Take Screenshot`, followed by ShotCleanup's `识别刚发送的截图`, passing the screenshot into the second action.
-3. Go to `Settings → Accessibility → Touch → Back Tap → Triple Tap` and select that shortcut.
+The agent should guide the user through these steps one at a time:
+
+1. Open ShotCleanup and allow full photo access.
+2. In Shortcuts, create a shortcut with `Take Screenshot`, followed by ShotCleanup's `识别刚发送的截图`; pass the screenshot result into the second action.
+3. Open `Settings → Accessibility → Touch → Back Tap → Triple Tap` and choose that shortcut.
+4. Test with unimportant screenshots first and verify the count and previews before confirming deletion.
 
 <details>
 <summary>Install manually with Xcode</summary>
@@ -94,11 +126,13 @@ The first install may still require you to sign in to an Apple Account, unlock a
 
 </details>
 
-If installation fails, start with:
+If installation fails, the same entry point can be run from the repository:
 
 ```sh
-./scripts/doctor.sh
+./scripts/install.sh
 ```
+
+It checks the environment first and reports the current blocker.
 
 ## Local checks
 
