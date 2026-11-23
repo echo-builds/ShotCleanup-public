@@ -36,26 +36,21 @@ ShotCleanup finds the batch you just sent and asks iOS to show the final count a
 
 ## How to use it
 
-1. Take and send screenshots as usual.
-2. Stay on the sent-message screen with at least one image still visible.
-3. Triple-tap the back of your iPhone.
-4. Check the photo count and previews shown by iOS, then confirm.
+1. Take screenshots and send them as usual.
+2. Stay on the page where the sent image is visible, then triple-tap the back of the iPhone.
+3. Check the photos ShotCleanup found. If they are correct, confirm deletion.
 
 ## How it works
 
-iOS does not tell third-party apps which photos were just sent. ShotCleanup therefore does not read your messages or blindly delete every recent screenshot.
+iPhone does not tell ShotCleanup which photos you just sent, so it uses a simple clue: the newest sent image is usually at the bottom of the chat. After the triple tap, ShotCleanup identifies the bottom-most screenshot on the page, then finds the other screenshots captured immediately before and after it. Even if you sent 10 screenshots and only the last few remain visible, it can still try to recover that batch.
 
-When triggered, it works locally on your iPhone to:
+When the result is uncertain, ShotCleanup selects fewer photos instead of widening the deletion range. The iPhone shows the photos before deletion, so nothing is removed until you confirm.
 
-1. match the current screen against screenshots created in the previous five minutes;
-2. use reliable on-screen matches as anchors to infer the continuous capture batch;
-3. hand the final set to iOS for count, preview, and confirmation.
+Everything runs locally on the iPhone. ShotCleanup does not read chat history or upload images.
 
-If you send ten screenshots while only two or three remain visible, ShotCleanup can still try to recover the full batch. If no reliable match exists or the batch is ambiguous, it narrows the result instead of expanding the deletion.
+> ShotCleanup identifies a continuous capture batch, not an actual send record. A screenshot captured in the same batch but never sent may also be found, so check the photos before deleting them.
 
-All image processing stays on the iPhone. See [How ShotCleanup works](./docs/how-it-works.md) for the matching rules, batch limits, and known boundaries.
-
-> iOS does not expose the actual send record. An unsent screenshot from the same continuous capture session may therefore appear as a candidate. Always check the count and previews before confirming.
+[Read the detailed explanation](./docs/how-it-works.md)
 
 ## Best-fit workflow
 
