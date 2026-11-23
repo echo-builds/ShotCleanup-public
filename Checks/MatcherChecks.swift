@@ -49,7 +49,7 @@ struct MatcherChecks {
         }
         let expanded = ScreenshotBatchInference.infer(
             items: continuous,
-            matchedIDs: ["shot-8", "shot-9"]
+            orderedMatchedIDs: ["shot-9", "shot-8"]
         )
         precondition(expanded.ids == continuous.map(\.id))
         precondition(expanded.decision == .expanded)
@@ -60,21 +60,30 @@ struct MatcherChecks {
             ScreenshotBatchItem(id: "late-1", creationDate: base.addingTimeInterval(90)),
             ScreenshotBatchItem(id: "late-2", creationDate: base.addingTimeInterval(95))
         ]
-        let ambiguous = ScreenshotBatchInference.infer(
+        // The matcher orders hits from the bottom of the screen upward. When old and
+        // new messages are both visible, only the bottom-most hit anchors a batch.
+        let bottomMostWins = ScreenshotBatchInference.infer(
             items: separated,
-            matchedIDs: ["early-2", "late-2"]
+            orderedMatchedIDs: ["late-2", "early-2"]
         )
-        precondition(ambiguous.ids == ["early-2", "late-2"])
-        precondition(ambiguous.decision == .multipleBatches)
+        precondition(bottomMostWins.ids == ["late-1", "late-2"])
+        precondition(bottomMostWins.decision == .expanded)
+
+        let reversedOrder = ScreenshotBatchInference.infer(
+            items: separated,
+            orderedMatchedIDs: ["early-2", "late-2"]
+        )
+        precondition(reversedOrder.ids == ["early-1", "early-2"])
+        precondition(reversedOrder.decision == .expanded)
 
         let tooLarge = (0..<21).map {
             ScreenshotBatchItem(id: "many-\($0)", creationDate: base.addingTimeInterval(Double($0)))
         }
-        let capped = ScreenshotBatchInference.infer(items: tooLarge, matchedIDs: ["many-20"])
+        let capped = ScreenshotBatchInference.infer(items: tooLarge, orderedMatchedIDs: ["many-20"])
         precondition(capped.ids == ["many-20"])
         precondition(capped.decision == .batchTooLarge)
 
-        let missing = ScreenshotBatchInference.infer(items: continuous, matchedIDs: ["missing"])
+        let missing = ScreenshotBatchInference.infer(items: continuous, orderedMatchedIDs: ["missing"])
         precondition(missing.ids.isEmpty)
         precondition(missing.decision == .matchedOnly)
     }

@@ -9,7 +9,6 @@ struct ScreenshotBatchInferenceResult: Sendable, Equatable {
     enum Decision: Sendable, Equatable {
         case matchedOnly
         case expanded
-        case multipleBatches
         case batchTooLarge
     }
 
@@ -23,14 +22,16 @@ enum ScreenshotBatchInference {
     /// A safety cap: never expand one screen match into an unexpectedly large deletion.
     static let maximumBatchSize = 20
 
+    /// Screen matches must be ordered from bottom to top. Only the first reliable
+    /// match is used as the anchor, so older visible messages cannot add another batch.
     static func infer(
         items: [ScreenshotBatchItem],
-        matchedIDs: Set<String>,
+        orderedMatchedIDs: [String],
         maximumAdjacentGap: TimeInterval = ScreenshotBatchInference.maximumAdjacentGap,
         maximumBatchSize: Int = ScreenshotBatchInference.maximumBatchSize
     ) -> ScreenshotBatchInferenceResult {
-        let availableMatches = matchedIDs.intersection(items.map(\.id))
-        guard !availableMatches.isEmpty else {
+        let availableIDs = Set(items.map(\.id))
+        guard let primaryMatchedID = orderedMatchedIDs.first(where: availableIDs.contains) else {
             return ScreenshotBatchInferenceResult(ids: [], decision: .matchedOnly)
         }
 
@@ -38,7 +39,7 @@ enum ScreenshotBatchInference {
             if $0.creationDate == $1.creationDate { return $0.id < $1.id }
             return $0.creationDate < $1.creationDate
         }
-        let matchedOnly = sorted.filter { availableMatches.contains($0.id) }.map(\.id)
+        let matchedOnly = [primaryMatchedID]
 
         var batches: [[ScreenshotBatchItem]] = []
         for item in sorted {
@@ -50,11 +51,10 @@ enum ScreenshotBatchInference {
             }
         }
 
-        let anchoredBatches = batches.filter { batch in
-            batch.contains { availableMatches.contains($0.id) }
-        }
-        guard anchoredBatches.count == 1, let batch = anchoredBatches.first else {
-            return ScreenshotBatchInferenceResult(ids: matchedOnly, decision: .multipleBatches)
+        guard let batch = batches.first(where: { batch in
+            batch.contains { $0.id == primaryMatchedID }
+        }) else {
+            return ScreenshotBatchInferenceResult(ids: matchedOnly, decision: .matchedOnly)
         }
         guard batch.count <= maximumBatchSize else {
             return ScreenshotBatchInferenceResult(ids: matchedOnly, decision: .batchTooLarge)

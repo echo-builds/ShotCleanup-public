@@ -120,9 +120,11 @@ final class ReviewModel: ObservableObject {
         guard !Task.isCancelled else { return }
 
         let hitsByID = Dictionary(uniqueKeysWithValues: hits.map { ($0.id, $0) })
+        // ThumbnailMatcher returns reliable matches from the bottom of the screen upward.
+        // Anchor on the bottom-most match so older visible messages cannot add another batch.
         let batch = ScreenshotBatchInference.infer(
             items: recentItems,
-            matchedIDs: Set(hitsByID.keys)
+            orderedMatchedIDs: hits.map(\.id)
         )
         candidates = batch.ids.compactMap { id in
             images[id].map {
@@ -142,14 +144,11 @@ final class ReviewModel: ObservableObject {
                 : "没找到可靠匹配，因此没有删除任何照片。"
             return
         }
-        let matchedCount = candidates.filter(\.matchedOnScreen).count
         switch batch.decision {
         case .expanded:
-            status = "屏幕中匹配到 \(matchedCount) 张，另有 \(candidates.count - matchedCount) 张连续创建的截图被归入同一批。"
-        case .multipleBatches:
-            status = "最近截图分成多批，只保留当前屏幕中明确匹配的 \(matchedCount) 张。"
+            status = "已用屏幕中最下方匹配到的截图定位本次批次，共找到 \(candidates.count) 张连续截图。"
         case .batchTooLarge:
-            status = "推断出的批次过大，只保留当前屏幕中明确匹配的 \(matchedCount) 张。"
+            status = "推断出的批次过大，只保留屏幕中最下方明确匹配的 1 张截图。"
         case .matchedOnly:
             status = nil
         }
