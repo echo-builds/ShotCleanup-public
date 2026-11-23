@@ -12,7 +12,6 @@
 <p align="center">
   <a href="./assets/shotcleanup-demo.mp4"><img src="./assets/shotcleanup-demo.gif" width="320" alt="ShotCleanup 使用演示"></a>
 </p>
-<p align="center"><sub>发送完成后，背面轻点三下，核对并确认删除。点击 GIF 可查看原视频。</sub></p>
 
 我是一名产品经理，每天都会截很多图：测试产品时发现问题，截图发到群里；看到不错的设计，截图发给同事。
 
