@@ -18,7 +18,7 @@ fi
 if command -v xcodebuild >/dev/null 2>&1 && xcodebuild -version >/dev/null 2>&1; then
     pass "Full Xcode is available: $(xcodebuild -version | head -n 1)"
 else
-    fail "Full Xcode is not selected. Install Xcode, then select it with xcode-select"
+    fail "Full Xcode is not selected. Install Xcode from Apple, open it once, then select it with xcode-select"
 fi
 
 developer_dir="$(xcode-select -p 2>/dev/null || true)"
@@ -45,7 +45,7 @@ if [ -n "$identities" ]; then
     pass "Apple Development signing identity found"
     printf '%s\n' "$identities" | sed 's/^/  /'
 else
-    warn "No Apple Development signing identity found. Sign in to Xcode with an Apple Account"
+    warn "No Apple Development signing identity found. A paid membership is not required: sign in at Xcode → Settings → Accounts, then create an Apple Development certificate for your Personal Team"
 fi
 
 device_lines="$(
@@ -56,7 +56,7 @@ if [ -n "$device_lines" ]; then
     pass "Connected iPhone detected"
     printf '%s\n' "$device_lines" | sed 's/^/  /'
 else
-    warn "No connected iPhone detected. Connect, unlock, and trust the device"
+    warn "No connected iPhone detected. Connect it to the Mac, unlock it, tap Trust, and enable Developer Mode if requested"
 fi
 
 printf '\n'
