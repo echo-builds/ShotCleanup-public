@@ -50,9 +50,11 @@ ShotCleanup finds a continuous batch of screenshots; it does not know which ones
 
 [Read the detailed explanation](./docs/how-it-works.md)
 
-## Best-fit workflow
+## Is ShotCleanup a fit?
 
-ShotCleanup is designed for **take screenshots → send them soon → stay on the sent screen → clean them up immediately**. It is not a historical photo-library organizer, and an old screenshot resent days later will not be considered.
+If your screenshots are usually temporary message attachments—captured and sent soon, no longer needed after sending, but left in Photos because you do not go back to clean them up—ShotCleanup is designed for you.
+
+If you keep screenshots as long-term reference or often send them days later, the current version is not designed for that workflow.
 
 ## Installation
 
