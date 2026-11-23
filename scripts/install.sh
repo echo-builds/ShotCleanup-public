@@ -123,7 +123,7 @@ fi
 if [ -z "$bundle_id" ]; then
     local_name="$(id -un | tr '[:upper:]' '[:lower:]' | tr -cd 'a-z0-9-')"
     [ -n "$local_name" ] || local_name="user"
-    bundle_id="com.echo-builds.shotcleanup.local.$local_name"
+    bundle_id="com.echobuilds.shotcleanup.local.$local_name"
 fi
 
 case "$team_id" in
