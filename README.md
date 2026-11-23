@@ -57,49 +57,24 @@ ShotCleanup 适合 **刚刚截图 → 很快发送 → 停留在发送页面 →
 
 ## 安装
 
-ShotCleanup 目前是开发者预览版，需要通过 Mac 安装到 iPhone，最低支持 iOS 18。
+目前需要一台 Mac、一部 iOS 18 或更高版本的 iPhone，以及 Mac 上安装的完整版 Xcode。
+
+**不需要付费开发者账号。**普通 Apple Account 也能把 App 安装到自己的 iPhone，但免费签名 7 天后会失效，需要让 Agent 重新安装一次。详见 [Apple 官方说明](https://developer.apple.com/help/account/basics/about-your-developer-account/)。
 
 ### 最简单的方式：交给 Agent
 
-你需要准备：
-
-- 一台 Mac；
-- 一台 iOS 18 或更高版本的 iPhone；
-- 普通 Apple Account；
-- 完整版 Xcode。
-
-**不需要付费开发者账号。**普通 Apple Account 可以把 App 安装到自己的 iPhone，但免费签名 7 天后会失效；到时把同一段话再次交给 Agent 重新安装即可。详见 [Apple 官方说明](https://developer.apple.com/help/account/basics/about-your-developer-account/)。
-
-把下面整段话交给 Codex、Claude Code、WorkBuddy，或其他能够操作 Mac 终端的 Agent：
+把下面整段话交给 Codex、Claude Code、WorkBuddy，或其他能操作 Mac 终端的 Agent：
 
 ```text
-请直接把 ShotCleanup 安装到这台 Mac 当前连接的 iPhone 上，不要只告诉我步骤。
+请直接把 ShotCleanup 安装到这台 Mac 当前连接的 iPhone 上，并带我完成快捷指令和背面三击设置，不要只告诉我步骤。
 
 项目仓库：https://github.com/echo-builds/ShotCleanup-public
-先读取并严格执行安装说明：
-https://raw.githubusercontent.com/echo-builds/ShotCleanup-public/main/INSTALL.md
+请先读取并执行仓库里的 INSTALL.md。
 
-请自动完成克隆仓库、检查环境、识别签名 Team 和 iPhone、编译、安装及启动。只有在必须由我完成的 Apple 安全操作时再暂停，例如安装或登录 Xcode、信任设备、开启开发者模式、配置快捷指令和背面三击。
-
-需要我操作时，每次只告诉我当前一个动作；我完成后继续，不要重新从头解释。不要向我索要 Apple Account 密码、验证码或恢复密钥。
-
-完成后请验证 App 已经安装到 iPhone，并继续带我完成手机上的快捷指令和背面三击设置。
+需要我操作时，每次只告诉我当前一个动作；我完成后继续。不要向我索要 Apple Account 密码、验证码或恢复密钥。
 ```
 
-Agent 会自动完成：
-
-- 下载正确的公开仓库；
-- 检查 Xcode、签名和连接的 iPhone；
-- 自动选择唯一的签名 Team 和设备；
-- 生成本机专用 Bundle ID；
-- 编译、安装并尝试启动 ShotCleanup。
-
-你只需要在系统要求时完成：
-
-- 安装完整版 Xcode；
-- 在 Xcode 登录自己的 Apple Account；
-- 解锁 iPhone、信任 Mac 或开启开发者模式；
-- 在 iPhone 上允许照片访问并配置快捷指令。
+安装过程中，你可能需要登录 Xcode、解锁并信任 iPhone，或开启开发者模式；其余步骤由 Agent 完成。
 
 ### 安装后，在 iPhone 配置
 
@@ -119,14 +94,6 @@ Agent 会逐步提醒你完成以下操作：
 4. 回到上面的「安装后，在 iPhone 配置」。
 
 </details>
-
-安装失败时，也可以在仓库目录运行：
-
-```sh
-./scripts/install.sh
-```
-
-脚本会先检查环境，再给出当前阻塞项。
 
 ## 本地检查
 

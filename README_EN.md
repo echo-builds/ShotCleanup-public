@@ -58,53 +58,28 @@ ShotCleanup is designed for **take screenshots → send them soon → stay on th
 
 ## Installation
 
-ShotCleanup is currently a developer preview. It must be installed from a Mac onto an iPhone running iOS 18 or later.
+You need a Mac, an iPhone running iOS 18 or later, and the full Xcode app installed on the Mac.
+
+**A paid developer membership is not required.** A normal Apple Account can install the app on the account owner's iPhone, but free signing expires after 7 days. Ask the agent to reinstall it when that happens. See [Apple's account overview](https://developer.apple.com/help/account/basics/about-your-developer-account/).
 
 ### Easiest path: give the task to an agent
-
-You need:
-
-- a Mac;
-- an iPhone running iOS 18 or later;
-- a normal Apple Account;
-- the full Xcode app.
-
-**A paid developer membership is not required.** A normal Apple Account can install the app on the account owner's iPhone. Free Personal Team provisioning expires after 7 days; give the same task to the agent again to reinstall it. See [Apple's account overview](https://developer.apple.com/help/account/basics/about-your-developer-account/).
 
 Give this entire prompt to Codex, Claude Code, WorkBuddy, or another coding agent with terminal access to the Mac:
 
 ```text
-Install ShotCleanup directly on the iPhone currently connected to this Mac. Do the work instead of only explaining the steps.
+Install ShotCleanup directly on the iPhone currently connected to this Mac. Then guide me through the Shortcut and Triple Tap setup. Do the work instead of only explaining the steps.
 
 Repository: https://github.com/echo-builds/ShotCleanup-public
-Read and follow this runbook exactly:
-https://raw.githubusercontent.com/echo-builds/ShotCleanup-public/main/INSTALL.md
+Read and follow the repository's INSTALL.md first.
 
-Automatically clone the repository, inspect the environment, identify the signing team and iPhone, build, install, and launch the app. Pause only for Apple security steps that I must complete, such as installing or signing in to Xcode, trusting the device, enabling Developer Mode, and configuring Shortcuts and Back Tap.
-
-When I need to act, give me only the current action. Continue after I finish instead of restarting the explanation. Never ask me for an Apple Account password, verification code, or recovery key.
-
-After installation, verify that the app is on the iPhone and continue guiding me through the Shortcut and Triple Tap setup.
+When I need to act, give me only the current action and continue after I finish. Never ask me for an Apple Account password, verification code, or recovery key.
 ```
 
-The agent will handle:
-
-- cloning the correct public repository;
-- checking Xcode, signing, and the connected iPhone;
-- selecting the only available signing team and device;
-- generating a device-specific local Bundle ID;
-- building, installing, and attempting to launch ShotCleanup.
-
-The user only needs to handle Apple-controlled steps:
-
-- install the full Xcode app if it is missing;
-- sign in to an Apple Account inside Xcode;
-- unlock the iPhone, trust the Mac, or enable Developer Mode;
-- allow photo access and configure the Shortcut on the iPhone.
+During installation, you may need to sign in to Xcode, unlock and trust the iPhone, or enable Developer Mode. The agent handles the rest.
 
 ### Configure the iPhone after installation
 
-The agent should guide the user through these steps one at a time:
+The agent should guide you through these steps one at a time:
 
 1. Open ShotCleanup and allow full photo access.
 2. In Shortcuts, create a shortcut with `Take Screenshot`, followed by ShotCleanup's `识别刚发送的截图`; pass the screenshot result into the second action.
@@ -120,14 +95,6 @@ The agent should guide the user through these steps one at a time:
 4. Complete the iPhone setup above.
 
 </details>
-
-If installation fails, the same entry point can be run from the repository:
-
-```sh
-./scripts/install.sh
-```
-
-It checks the environment first and reports the current blocker.
 
 ## Local checks
 
