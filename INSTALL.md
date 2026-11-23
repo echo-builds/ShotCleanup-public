@@ -19,7 +19,7 @@ git clone https://github.com/echo-builds/ShotCleanup-public.git
 cd ShotCleanup-public
 ```
 
-Do not reuse or overwrite an unrelated directory named `ShotCleanup`.
+Do not reuse or overwrite an unrelated directory named `ShotCleanup-public`.
 
 ## 2. Inspect the environment
 
