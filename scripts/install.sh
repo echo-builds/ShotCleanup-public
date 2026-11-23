@@ -51,6 +51,13 @@ while [ "$#" -gt 0 ]; do
     esac
 done
 
+printf 'Checking the Mac, Xcode, signing, and connected iPhone...\n'
+if ! "$root_dir/scripts/doctor.sh"; then
+    printf '\nResolve the blocking item above, then rerun this same command.\n' >&2
+    exit 1
+fi
+printf '\n'
+
 if [ "$(uname -s)" != "Darwin" ]; then
     printf 'ShotCleanup can only be installed from macOS.\n' >&2
     exit 1
@@ -83,7 +90,8 @@ if [ -z "$team_id" ]; then
         if [ -n "$team_ids" ]; then
             printf 'Available team IDs:\n%s\n' "$team_ids" >&2
         else
-            printf 'No Apple Development identity was found. Sign in to Xcode first.\n' >&2
+            printf 'No Apple Development identity was found. A paid membership is not required.\n' >&2
+            printf 'Open Xcode → Settings → Accounts, sign in with an Apple Account, then create an Apple Development certificate for the Personal Team.\n' >&2
         fi
         printf 'Rerun with --team-id TEAM_ID.\n' >&2
         exit 2
@@ -104,7 +112,8 @@ if [ -z "$device_id" ]; then
         if [ -n "$device_ids" ]; then
             printf 'Connected iPhone identifiers:\n%s\n' "$device_ids" >&2
         else
-            printf 'No connected iPhone was found. Connect, unlock, and trust it first.\n' >&2
+            printf 'No connected iPhone was found. Connect it to the Mac, unlock it, and tap Trust when prompted.\n' >&2
+            printf 'If iPhone asks for Developer Mode, enable it and reconnect after the restart.\n' >&2
         fi
         printf 'Rerun with --device-id DEVICE_ID.\n' >&2
         exit 2
