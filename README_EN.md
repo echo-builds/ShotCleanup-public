@@ -42,13 +42,11 @@ ShotCleanup finds the batch you just sent and asks iOS to show the final count a
 
 ## How it works
 
-iPhone does not tell ShotCleanup which photos you just sent, so it uses a simple clue: the newest sent image is usually at the bottom of the chat. After the triple tap, ShotCleanup identifies the bottom-most screenshot on the page, then finds the other screenshots captured immediately before and after it. Even if you sent 10 screenshots and only the last few remain visible, it can still try to recover that batch.
-
-When the result is uncertain, ShotCleanup selects fewer photos instead of widening the deletion range. The iPhone shows the photos before deletion, so nothing is removed until you confirm.
+iPhone does not tell ShotCleanup which photos you just sent. ShotCleanup first identifies the bottom-most screenshot on the page, then finds the other screenshots captured immediately before and after it. Even if you sent 10 screenshots and only the last few remain visible, it can still recover that batch.
 
 Everything runs locally on the iPhone. ShotCleanup does not read chat history or upload images.
 
-> ShotCleanup identifies a continuous capture batch, not an actual send record. A screenshot captured in the same batch but never sent may also be found, so check the photos before deleting them.
+ShotCleanup finds a continuous batch of screenshots; it does not know which ones were actually sent. An unsent screenshot from the same batch may also be selected, so check the photos before deleting them.
 
 [Read the detailed explanation](./docs/how-it-works.md)
 

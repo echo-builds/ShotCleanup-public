@@ -15,8 +15,8 @@ When the shortcut runs:
 1. The `Take Screenshot` action captures the current sent-message screen.
 2. ShotCleanup loads screenshots created between one second and five minutes before the trigger.
 3. The app downsizes and compares image structure and color locally.
-4. Original screenshots that reliably appear on the current screen become anchors.
-5. Creation times are used to infer the continuous capture batch containing those anchors.
+4. The bottom-most original screenshot that reliably matches the page becomes the only anchor for this run.
+5. Creation times are used to infer the continuous capture batch containing that anchor.
 6. iOS shows the final photo count and previews, and the user decides whether to delete them.
 
 ShotCleanup only considers assets marked as screenshots. Neither the captured screen nor Photos-library images are uploaded.
@@ -25,11 +25,12 @@ ShotCleanup only considers assets marked as screenshots. Neither the captured sc
 
 The current version uses these rules:
 
-- only screenshots created in the previous five minutes are considered;
+- only screenshots created between one second and five minutes before the trigger are considered;
 - adjacent screenshots no more than 45 seconds apart belong to the same continuous batch;
-- at least one screenshot must reliably match the current screen—time alone never starts a deletion;
-- if on-screen matches span multiple time batches, the result is not expanded beyond the explicit matches;
-- if an inferred batch contains more than 20 screenshots, the result is not expanded beyond the explicit matches;
+- one screenshot must reliably match the current page; without a reliable match, no deletion is requested;
+- when several batches are visible, only the bottom-most reliable match anchors a batch, so older images higher on the page cannot add another batch;
+- an inferred batch of 20 screenshots or fewer is shown in full;
+- if an inferred batch contains more than 20 screenshots, only the single anchor screenshot is kept;
 - originals that are too similar to distinguish reliably are not used as anchors.
 
 This allows the app to recover a ten-image send even when only two or three images remain visible on screen.
@@ -40,8 +41,8 @@ A time batch describes continuous capture, not actual sending. If you take ten s
 
 ShotCleanup therefore keeps these safety boundaries:
 
-- no screen anchor, no deletion request;
-- ambiguous batch, no expansion;
+- no reliable screen anchor, no deletion request;
+- if an inferred batch contains more than 20 screenshots, only the single anchor screenshot is kept;
 - iOS always shows the final count and previews before deletion;
 - canceling the system confirmation leaves the photos untouched.
 
