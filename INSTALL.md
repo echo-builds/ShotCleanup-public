@@ -16,7 +16,7 @@ If the current working directory is already this repository, use it. Otherwise c
 
 ```sh
 git clone https://github.com/echo-builds/ShotCleanup-public.git
-cd ShotCleanup
+cd ShotCleanup-public
 ```
 
 Do not reuse or overwrite an unrelated directory named `ShotCleanup`.
